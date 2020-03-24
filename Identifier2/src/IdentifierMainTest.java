@@ -15,19 +15,19 @@ public class IdentifierMainTest {
 
 	
 	@BeforeClass
-	static void beforeClassInit() {
+	public static void beforeClassInit() {
 		baOut= new ByteArrayOutputStream();
 		psOut= new PrintStream(baOut);
-		System.out.println(psOut);
+		System.setOut(psOut);
 	}
 	
 	@AfterClass
-	static void afterClassFinalize() {
+	public static void afterClassFinalize() {
 		psOut.close();
 	}
 	
 	@Before
-	public void setup() {
+	public void setUp() {
 		baOut.reset();
 	}
 	
@@ -41,17 +41,32 @@ public class IdentifierMainTest {
 	}
 	
 	@Test
-	public void testeValido02() {
-		IdentifierMain.main(new String [] {""});
+	public void testeInvalido02() {
+		IdentifierMain.main(new String [] {"2b3"});
 		String output = baOut.toString();
 		
-		assertEquals("Valido", output);
+		assertEquals("Invalido", output);
 		
 	}
 	
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testeInvalido03() {
+		IdentifierMain.main(new String [] {"z-12"});
+		String output = baOut.toString();
+		
+		assertEquals("Invalido", output);
+		
 	}
+	
+	@Test
+	public void testeInvalido04() {
+		IdentifierMain.main(new String [] {"abcdef456"});
+		String output = baOut.toString();
+		
+		assertEquals("Invalido", output);
+		
+	}
+	
+	
 
 }
